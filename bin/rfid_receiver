@@ -17,6 +17,7 @@ options = {
 }
 
 Daemons.run_proc('rfid_receiverd', options )  do
+  $: << File.join(APP_ROOT, "/lib")
   require 'rfid/receiver'
   RFID::Receiver.run!
 end

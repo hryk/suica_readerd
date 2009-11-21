@@ -89,7 +89,7 @@ module RFID
       rfid = nil
 
       loop do
-        STDERR.puts "loop start : state -> " + @maton.state.to_s
+#        STDERR.puts "loop start : state -> " + @maton.state.to_s
         begin
           tag = NFC.instance.find
         rescue => e
@@ -112,7 +112,7 @@ module RFID
           res[:action] = 'login'
           yield res.to_json + CRLF
         else
-          STDERR.puts "waiting...."
+#          STDERR.puts "waiting...."
         end
       end
     end
