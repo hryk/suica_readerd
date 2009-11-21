@@ -10,6 +10,9 @@ module RFID
   CRLF = "\x0D\x0A"
   class Receiver < ::Sinatra::Application
     @@logger = nil;
+    @@baseid = IO.read(::BASE_ID_PATH).chomp
+
+    def self.baseid; @@baseid;end
 
     set :host , "127.0.0.1"
     set :port , 5000
@@ -99,7 +102,7 @@ module RFID
           @maton.leave_rfid
           res = {}
           res[:uuid] = 'undefined'
-          res[:location] = Socket::getaddrinfo(Socket.gethostname, 'http', Socket::AF_INET).first[3]
+          res[:location] = RFID::Receiver.baseid
           res[:time] = DateTime.now
           res[:action] = 'logout'
           yield res.to_json + CRLF
@@ -107,7 +110,7 @@ module RFID
           @maton.get_rfid rfid
           res = {}
           res[:uuid] = rfid
-          res[:location] = Socket::getaddrinfo(Socket.gethostname, 'http', Socket::AF_INET).first[3]
+          res[:location] = RFID::Receiver.baseid
           res[:time] = DateTime.now
           res[:action] = 'login'
           yield res.to_json + CRLF
