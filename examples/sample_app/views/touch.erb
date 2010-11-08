@@ -1,0 +1,24 @@
+<script type="text/javascript">
+function on_login(json) {
+  console.log("tesst method invoked!");
+//  $('#movie').get(0).test();
+}
+function on_logout() {
+  document.location = 'http://localhost:4567/'
+}
+$(function(){
+//    $('#container').flashembed("http://web.sfc.keio.ac.jp/~t07666kh/test.swf");
+    $('#container').flashembed("/swf/twitter3.swf");
+    $("#container").children("object").attr("id", "movie")
+    Touch_fu.init('127.0.0.1', '5000', {
+                  debug : true,
+                  login : on_login ,
+                  logout: on_logout
+                  });
+});
+</script>
+<div id="container">
+  <div id="flash_container">
+  </div>
+</div>
+
